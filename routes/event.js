@@ -99,6 +99,38 @@ router.put('/:id', async(req,res)=>{
     try{
         const data = await Event.findOne({_id:req.params.id}) 
         if(data){
+            const {title, description, location, startTime, endTime} = req.body
+            if(!title){
+                return res.status(400).json({
+                    status : "failed",
+                    error : "Validation error : title is required"
+                })
+            }
+            if(!description){
+                return res.status(400).json({
+                    status : "failed",
+                    error : "Validation error : description is required"
+                })
+            }
+            if(!location){
+                return res.status(400).json({
+                    status : "failed",
+                    error : "Validation error : location is required"
+                })
+            }
+            if(!startTime){
+                return res.status(400).json({
+                    status : "failed",
+                    error : "Validation error : startTime is required"
+                })
+            }
+            if(!endTime){
+                return res.status(400).json({
+                    status : "failed",
+                    error : "Validation error : endTime is required"
+                })
+            }
+
             const updated = await Event.updateOne({_id:req.params.id}, {...req.body})
             return res.status(200).json({
                 status: "success",
